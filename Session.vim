@@ -14,21 +14,34 @@ else
   set shortmess=aoO
 endif
 badd +1 ~/personal/aoc-2022-rescript
-badd +1 src/day_2/day_2_extend.res
-badd +1 src/day_1/test.txt
-badd +3 src/day_2/test.txt
+badd +21 src/day_2/day_2_extend.res
+badd +2209 src/day_1/test.txt
+badd +2498 src/day_2/test.txt
 badd +1 src/day_2
 badd +154 term://~/personal/aoc-2022-rescript//5268:/bin/zsh
 badd +25 term://~/personal/aoc-2022-rescript//17636:/bin/zsh
 badd +172 node_modules/rescript/lib/ocaml/js.ml
 badd +1 src/day_2/day_2.res
+badd +7 term://~/personal/aoc-2022-rescript//74712:yarn\ res:watch
+badd +1 package.json
+badd +2 term://~/personal/aoc-2022-rescript//74798:yarn\ res:start
+badd +71 src/day_3/day_3_extenend.res
+badd +0 term://~/personal/aoc-2022-rescript//78749:/bin/zsh
+badd +1 src/day_3
+badd +1 src/day_3/test.txt
+badd +78 node_modules/rescript/lib/ocaml/belt_MapDict.mli
+badd +1 src/day_3/day_3.res
 argglobal
 %argdel
 $argadd ~/personal/aoc-2022-rescript
-edit src/day_2/day_2_extend.res
+edit src/day_3/day_3_extenend.res
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
 let &splitbelow = s:save_splitbelow
 let &splitright = s:save_splitright
 wincmd t
@@ -38,8 +51,32 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
+exe 'vert 1resize ' . ((&columns * 159 + 160) / 320)
+exe 'vert 2resize ' . ((&columns * 160 + 160) / 320)
 argglobal
-balt src/day_2/test.txt
+if bufexists(fnamemodify("term://~/personal/aoc-2022-rescript//78749:/bin/zsh", ":p")) | buffer term://~/personal/aoc-2022-rescript//78749:/bin/zsh | else | edit term://~/personal/aoc-2022-rescript//78749:/bin/zsh | endif
+if &buftype ==# 'terminal'
+  silent file term://~/personal/aoc-2022-rescript//78749:/bin/zsh
+endif
+balt src/day_3/day_3_extenend.res
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 916 - ((66 * winheight(0) + 34) / 69)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 916
+normal! 0
+lcd ~/personal/aoc-2022-rescript
+wincmd w
+argglobal
+balt ~/personal/aoc-2022-rescript/src/day_2/day_2_extend.res
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -50,13 +87,17 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 29) / 59)
+let s:l = 71 - ((47 * winheight(0) + 34) / 69)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1
-normal! 031|
+keepjumps 71
+normal! 053|
 lcd ~/personal/aoc-2022-rescript
+wincmd w
+2wincmd w
+exe 'vert 1resize ' . ((&columns * 159 + 160) / 320)
+exe 'vert 2resize ' . ((&columns * 160 + 160) / 320)
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -72,7 +113,6 @@ if filereadable(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
 set hlsearch
-nohlsearch
 let g:this_session = v:this_session
 let g:this_obsession = v:this_session
 doautoall SessionLoadPost

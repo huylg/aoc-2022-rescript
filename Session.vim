@@ -13,6 +13,7 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
+badd +1 ~/personal/aoc-2022-rescript
 badd +21 src/day_2/day_2_extend.res
 badd +2209 src/day_1/test.txt
 badd +2498 src/day_2/test.txt
@@ -38,13 +39,17 @@ badd +12 README.md
 badd +1 src/day_4/day_4.res
 badd +1 day_5/
 badd +1 day_5
-badd +1 src/day_5/puzzle.md
-badd +0 src/day_5/day_5.res
+badd +48 src/day_5/puzzle.md
+badd +1 src/day_5/day_5.res
+badd +1 src/day_5
+badd +8 src/day_5/input
+badd +8 src/day_5/test
 argglobal
 %argdel
 $argadd ~/personal/aoc-2022-rescript
-edit src/day_5/puzzle.md
+edit src/day_5/day_5.res
 argglobal
+balt ~/personal/aoc-2022-rescript
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -55,11 +60,11 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 57 - ((56 * winheight(0) + 37) / 74)
+let s:l = 8 - ((7 * winheight(0) + 37) / 74)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 57
+keepjumps 8
 normal! 03|
 lcd ~/personal/aoc-2022-rescript
 tabnext 1

@@ -3,7 +3,29 @@ let input =
   ->Js.String2.split("\n")
   ->Belt.Array.keep(e => e != "")
 
-let packages = input->Belt.Array.slice(~offset=0, ~len=3)
-let action = input->Belt.Array.getUnsafe(3)
-let action = input->Belt.Array.slice(~offset=4, ~len=1)
-Belt.MutableStack.pop
+//delete [ and ] from the string
+let formatPackage = s =>
+  s
+  ->Belt.Array.map(Js.String2.trim)
+  ->Belt.Array.map(e =>
+    Js.String2.split(e, "")
+    ->Belt.Array.keep(e => e != "[" && e != "]")
+    ->Belt.Array.reduce("", (acc, e) => acc ++ e)
+  )
+  ->Belt.Array.map(Js.String2.split(_, " "))
+
+let packages = input->Belt.Array.slice(~offset=0, ~len=3)->formatPackage
+
+let columns =
+  input
+  ->Belt.Array.getUnsafe(3)
+  ->Js.String2.split(" ")
+  ->Belt.Array.map(Js.String2.trim)
+  ->Belt.Array.keep(e => e != "")
+
+type action = {packages: string, from: string, to: string}
+
+let actions = input->Belt.Array.sliceToEnd(4)->Belt.Array.map(Js.String2.split(" "))
+
+
+Js.log(actions)

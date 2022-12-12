@@ -8,11 +8,41 @@ var input = Belt_Array.keep(Fs.readFileSync("src/day_5/test", "utf8").split("\n"
         return e !== "";
       }));
 
-var packages = Belt_Array.slice(input, 0, 3);
+function formatPackage(s) {
+  return Belt_Array.map(Belt_Array.map(Belt_Array.map(s, (function (prim) {
+                        return prim.trim();
+                      })), (function (e) {
+                    return Belt_Array.reduce(Belt_Array.keep(e.split(""), (function (e) {
+                                      if (e !== "[") {
+                                        return e !== "]";
+                                      } else {
+                                        return false;
+                                      }
+                                    })), "", (function (acc, e) {
+                                  return acc + e;
+                                }));
+                  })), (function (__x) {
+                return __x.split(" ");
+              }));
+}
 
-var action = Belt_Array.slice(input, 4, 1);
+var packages = formatPackage(Belt_Array.slice(input, 0, 3));
+
+var columns = Belt_Array.keep(Belt_Array.map(input[3].split(" "), (function (prim) {
+            return prim.trim();
+          })), (function (e) {
+        return e !== "";
+      }));
+
+var actions = Belt_Array.map(Belt_Array.sliceToEnd(input, 4), (function (param) {
+        return " ".split(param);
+      }));
+
+console.log(actions);
 
 exports.input = input;
+exports.formatPackage = formatPackage;
 exports.packages = packages;
-exports.action = action;
+exports.columns = columns;
+exports.actions = actions;
 /* input Not a pure module */

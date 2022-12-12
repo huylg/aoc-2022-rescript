@@ -3,7 +3,7 @@ let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/personal/aoc-2022-rescript
+cd /workspaces/aoc-2022-rescript
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
@@ -40,16 +40,17 @@ badd +1 src/day_4/day_4.res
 badd +1 day_5/
 badd +1 day_5
 badd +48 src/day_5/puzzle.md
-badd +1 src/day_5/day_5.res
+badd +30 src/day_5/day_5.res
 badd +1 src/day_5
 badd +8 src/day_5/input
 badd +8 src/day_5/test
+badd +46 /workspaces/aoc-2022-rescript/node_modules/rescript/lib/ocaml/belt_MutableStack.mli
 argglobal
 %argdel
 $argadd ~/personal/aoc-2022-rescript
 edit src/day_5/day_5.res
 argglobal
-balt ~/personal/aoc-2022-rescript
+balt /workspaces/aoc-2022-rescript/node_modules/rescript/lib/ocaml/belt_MutableStack.mli
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -60,13 +61,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 8 - ((7 * winheight(0) + 37) / 74)
+let s:l = 31 - ((30 * winheight(0) + 37) / 74)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 8
-normal! 03|
-lcd ~/personal/aoc-2022-rescript
+keepjumps 31
+normal! 015|
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -80,6 +80,7 @@ if filereadable(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
 set hlsearch
+nohlsearch
 let g:this_session = v:this_session
 let g:this_obsession = v:this_session
 doautoall SessionLoadPost

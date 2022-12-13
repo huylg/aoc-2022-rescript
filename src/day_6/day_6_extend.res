@@ -1,9 +1,12 @@
-let input = Node_fs.readFileAsUtf8Sync("src/day_6/input")
+/* let input = Node_fs.readFileAsUtf8Sync("src/day_6/input") */
+let input = "mjqjpqmgbljsphdztnvjfqwrcgsmlb"
+
+input->Js.String2.length->Js.log
 
 input
 ->Js.String2.split("")
 ->Belt.Array.reduceWithIndex(Belt.MutableMap.String.make(), (acc, cur, i) => {
-  if acc->Belt.MutableMap.String.size < 5 {
+  if acc->Belt.MutableMap.String.size < 20 {
     switch acc->Belt.MutableMap.String.get(cur) {
     | None => acc->Belt.MutableMap.String.set(cur, i)
     | Some(e) => {
@@ -18,5 +21,6 @@ input
   }
   acc
 })
-->Belt.MutableMap.String.reduce(min_int, (acc, _, v) => Js.Math.max_int(acc, v))
+->Belt.MutableMap.String.size
+/* ->Belt.MutableMap.String.reduce(min_int, (acc, _, v) => Js.Math.max_int(acc, v)) */
 ->Js.log

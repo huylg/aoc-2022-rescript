@@ -44,32 +44,15 @@ badd +46 /workspaces/aoc-2022-rescript/node_modules/rescript/lib/ocaml/belt_Muta
 badd +38 src/day_5/internet.js
 badd +1 src/day_5/day_5.bs.js
 badd +1 src/day_5/day_5.res
-badd +5 src/day_6/day_6.res
-badd +30 src/day_6/puzzle.md
-badd +0 src/day_6/input
+badd +1 src/day_6/day_6.res
+badd +50 src/day_6/puzzle.md
+badd +1 src/day_6/input
 badd +5 ~/personal/aoc-2022-rescript/node_modules/rescript/lib/ocaml/belt_MutableMap.mli
+badd +24 src/day_6/day_6_extend.res
 argglobal
 %argdel
 $argadd ~/personal/aoc-2022-rescript
-edit src/day_6/puzzle.md
-let s:save_splitbelow = &splitbelow
-let s:save_splitright = &splitright
-set splitbelow splitright
-wincmd _ | wincmd |
-split
-1wincmd k
-wincmd w
-let &splitbelow = s:save_splitbelow
-let &splitright = s:save_splitright
-wincmd t
-let s:save_winminheight = &winminheight
-let s:save_winminwidth = &winminwidth
-set winminheight=0
-set winheight=1
-set winminwidth=0
-set winwidth=1
-exe '1resize ' . ((&lines * 35 + 35) / 71)
-exe '2resize ' . ((&lines * 34 + 35) / 71)
+edit src/day_6/day_6_extend.res
 argglobal
 balt src/day_6/day_6.res
 setlocal fdm=manual
@@ -82,38 +65,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 30 - ((16 * winheight(0) + 17) / 34)
+let s:l = 2 - ((1 * winheight(0) + 34) / 69)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 30
-normal! 04|
-wincmd w
-argglobal
-if bufexists(fnamemodify("src/day_6/day_6.res", ":p")) | buffer src/day_6/day_6.res | else | edit src/day_6/day_6.res | endif
-if &buftype ==# 'terminal'
-  silent file src/day_6/day_6.res
-endif
-balt src/day_6/puzzle.md
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 5 - ((4 * winheight(0) + 16) / 33)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 5
-normal! 013|
-wincmd w
-exe '1resize ' . ((&lines * 35 + 35) / 71)
-exe '2resize ' . ((&lines * 34 + 35) / 71)
+keepjumps 2
+normal! 09|
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -121,8 +78,6 @@ endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20
 let &shortmess = s:shortmess_save
-let &winminheight = s:save_winminheight
-let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)

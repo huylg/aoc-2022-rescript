@@ -6,6 +6,7 @@ var Belt_Int = require("rescript/lib/js/belt_Int.js");
 var Belt_Array = require("rescript/lib/js/belt_Array.js");
 var Belt_Option = require("rescript/lib/js/belt_Option.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
+var Caml_splice_call = require("rescript/lib/js/caml_splice_call.js");
 
 var input = Belt_Array.keep(Fs.readFileSync("src/day_5/input", "utf8").split("\n"), (function (e) {
         return e !== "";
@@ -107,17 +108,12 @@ var actions = Belt_Array.map(Belt_Array.map(Belt_Array.sliceToEnd(input, 9), (fu
               };
       }));
 
-Belt_Array.forEach(actions, (function (action) {
-        var fromStack = stacks[action.from];
-        var toStack = stacks[action.to];
-        for(var _for = 0 ,_for_finish = action.amount; _for < _for_finish; ++_for){
-          var e = fromStack.pop();
-          if (e !== undefined) {
-            toStack.push(e);
-          }
-          
-        }
-      }));
+actions.forEach(function (action) {
+      var fromStack = stacks[action.from];
+      var toStack = stacks[action.to];
+      var temp = fromStack.splice(fromStack.length - action.amount | 0, action.amount);
+      Caml_splice_call.spliceObjApply(toStack, "push", [temp]);
+    });
 
 console.log(Belt_Array.reduce(Belt_Array.sliceToEnd(Belt_Array.map(stacks, (function (prim) {
                     return Caml_option.undefined_to_opt(prim.pop());

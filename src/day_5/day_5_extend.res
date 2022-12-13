@@ -30,15 +30,16 @@ let actions =
     to: e->Belt.Array.getUnsafe(5)->Belt.Int.fromString->Belt.Option.getUnsafe,
   })
 
-actions->Belt.Array.forEach(action => {
+actions->Js.Array2.forEach(action => {
   let fromStack = stacks->Belt.Array.getUnsafe(action.from)
   let toStack = stacks->Belt.Array.getUnsafe(action.to)
-  for _ in 0 to action.amount - 1 {
-    switch Js.Array2.pop(fromStack) {
-    | None => ()
-    | Some(e) => toStack->Belt.Array.push(e)
-    }
-  }
+  let temp =
+    fromStack->Js.Array2.spliceInPlace(
+      ~pos=fromStack->Belt.Array.length - action.amount,
+      ~remove=action.amount,
+      ~add=[],
+    )
+  let _ = toStack->Js.Array2.pushMany(temp)
 })
 
 stacks

@@ -3,7 +3,7 @@ let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd /workspaces/aoc-2022-rescript
+cd ~/personal/aoc-2022-rescript
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
@@ -35,22 +35,29 @@ badd +12 README.md
 badd +1 src/day_4/day_4.res
 badd +1 day_5/
 badd +1 day_5
-badd +27 src/day_5/puzzle.md
-badd +27 src/day_5/day_5.res
+badd +1 src/day_5/puzzle.md
+badd +39 src/day_5/day_5_extend.res
 badd +1 src/day_5
-badd +6 src/day_5/input
+badd +21 src/day_5/input
 badd +7 src/day_5/test
 badd +46 /workspaces/aoc-2022-rescript/node_modules/rescript/lib/ocaml/belt_MutableStack.mli
+badd +38 src/day_5/internet.js
+badd +1 src/day_5/day_5.bs.js
+badd +1 src/day_5/day_5.res
+badd +5 src/day_6/day_6.res
+badd +30 src/day_6/puzzle.md
+badd +0 src/day_6/input
+badd +5 ~/personal/aoc-2022-rescript/node_modules/rescript/lib/ocaml/belt_MutableMap.mli
 argglobal
 %argdel
 $argadd ~/personal/aoc-2022-rescript
-edit src/day_5/test
+edit src/day_6/puzzle.md
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
 wincmd _ | wincmd |
-vsplit
-1wincmd h
+split
+1wincmd k
 wincmd w
 let &splitbelow = s:save_splitbelow
 let &splitright = s:save_splitright
@@ -61,10 +68,10 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe 'vert 1resize ' . ((&columns * 160 + 160) / 320)
-exe 'vert 2resize ' . ((&columns * 159 + 160) / 320)
+exe '1resize ' . ((&lines * 35 + 35) / 71)
+exe '2resize ' . ((&lines * 34 + 35) / 71)
 argglobal
-balt src/day_4/test
+balt src/day_6/day_6.res
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -75,18 +82,19 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 34) / 69)
+let s:l = 30 - ((16 * winheight(0) + 17) / 34)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1
-normal! 06|
+keepjumps 30
+normal! 04|
 wincmd w
 argglobal
-if bufexists(fnamemodify("src/day_5/day_5.res", ":p")) | buffer src/day_5/day_5.res | else | edit src/day_5/day_5.res | endif
+if bufexists(fnamemodify("src/day_6/day_6.res", ":p")) | buffer src/day_6/day_6.res | else | edit src/day_6/day_6.res | endif
 if &buftype ==# 'terminal'
-  silent file src/day_5/day_5.res
+  silent file src/day_6/day_6.res
 endif
+balt src/day_6/puzzle.md
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -97,16 +105,15 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 27 - ((26 * winheight(0) + 34) / 69)
+let s:l = 5 - ((4 * winheight(0) + 16) / 33)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 27
-normal! 06|
+keepjumps 5
+normal! 013|
 wincmd w
-2wincmd w
-exe 'vert 1resize ' . ((&columns * 160 + 160) / 320)
-exe 'vert 2resize ' . ((&columns * 159 + 160) / 320)
+exe '1resize ' . ((&lines * 35 + 35) / 71)
+exe '2resize ' . ((&lines * 34 + 35) / 71)
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -122,6 +129,7 @@ if filereadable(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
 set hlsearch
+nohlsearch
 let g:this_session = v:this_session
 let g:this_obsession = v:this_session
 doautoall SessionLoadPost

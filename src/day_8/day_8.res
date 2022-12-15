@@ -36,22 +36,67 @@ let right =
 let top = trees->JsArray2Ex.transpose->Belt.Array.map(maxUntil)->JsArray2Ex.transpose
 let bottom =
   trees
-  ->Belt.Array.map(Belt.Array.reverse)
+  ->Belt.Array.reverse
   ->JsArray2Ex.transpose
   ->Belt.Array.map(maxUntil)
-  ->Belt.Array.map(Belt.Array.reverse)
   ->JsArray2Ex.transpose
+  ->Belt.Array.reverse
 
 let min_ = (a, b) => a->Belt.Array.zipBy(b, min)
 let min__ = (a, b) => a->Belt.Array.zipBy(b, min_)
 
-let eqOrGreater_ = (a, b) => Belt.Array.zipBy(a, b, (a, b) => a >= b)
+let less_ = (a, b) => Belt.Array.zipBy(a, b, (a, b) => a < b)
 
-min__(left, right)
-->min__(top)
-->min__(bottom)
-->Belt.Array.zipBy(trees, (a, b) => eqOrGreater_(b, a))
-->Belt.Array.flatMap(a => a)
-->Belt.Array.keep(a => a)
-->Belt.Array.length
-->Js.log
+let results = min__(left, right)->min__(top)->min__(bottom)
+
+let pp = a =>
+  a
+  ->Belt.Array.map(Belt.Array.joinWith(_, "", Belt.Int.toString))
+  ->Belt.Array.joinWith("\n", a => a)
+  ->Js.log
+
+results->pp
+
+let _ =
+  results
+  ->Belt.Array.zipBy(trees, (result, tree) => Belt.Array.zipBy(result, tree, (a, b) => a <= b))
+  ->Belt.Array.map(
+    Belt.Array.map(_, a => {
+      if a {
+        1
+      } else {
+        0
+      }
+    }),
+  )
+  ->Belt.Array.map(Belt.Array.joinWith(_, "", Belt.Int.toString))
+  ->Belt.Array.joinWith("\n", a => a)
+/* ->Belt.Array.flatMap(a => a) */
+/* ->Belt.Array.keep(a => a) */
+/* ->Belt.Array.length */
+/* ->Js.log */
+
+/* let _ = results->Belt.Array.zipBy(trees, (result, tree) => { */
+/* let a = result->Belt.Array.zipBy(tree, (r, t) => r < t) */
+/* a->Js.log */
+/* a */
+/* }) */
+/* ->Belt.Array.map( */
+/* Belt.Array.map(_, a => { */
+/* if a { */
+/* 1 */
+/* } else { */
+/* 0 */
+/* } */
+/* }), */
+/* ) */
+/* ->Belt.Array.map(Belt.Array.joinWith(_, "", Belt.Int.toString)) */
+/* ->Belt.Array.joinWith("\n", a => a) */
+/* ->Js.log */
+
+/* result */
+/* ->Belt.Array.zipBy(trees, (a, b) => eqOrGreater_(b, a)) */
+/* ->Belt.Array.flatMap(a => a) */
+/* ->Belt.Array.keep(a => a) */
+/* ->Belt.Array.length */
+/* ->Js.log */

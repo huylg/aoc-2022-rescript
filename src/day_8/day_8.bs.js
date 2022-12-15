@@ -50,7 +50,7 @@ var right = Belt_Array.map(Belt_Array.map(Belt_Array.map(trees, Belt_Array.rever
 
 var top = JsArray2Ex.transpose(Belt_Array.map(JsArray2Ex.transpose(trees), maxUntil));
 
-var bottom = JsArray2Ex.transpose(Belt_Array.map(Belt_Array.map(JsArray2Ex.transpose(Belt_Array.map(trees, Belt_Array.reverse)), maxUntil), Belt_Array.reverse));
+var bottom = Belt_Array.reverse(JsArray2Ex.transpose(Belt_Array.map(JsArray2Ex.transpose(Belt_Array.reverse(trees)), maxUntil)));
 
 function min_(a, b) {
   return Belt_Array.zipBy(a, b, Caml_obj.min);
@@ -60,17 +60,43 @@ function min__(a, b) {
   return Belt_Array.zipBy(a, b, min_);
 }
 
-function eqOrGreater_(a, b) {
-  return Belt_Array.zipBy(a, b, Caml_obj.greaterequal);
+function less_(a, b) {
+  return Belt_Array.zipBy(a, b, Caml_obj.lessthan);
 }
 
-console.log(Belt_Array.keep(Belt_Array.flatMap(Belt_Array.zipBy(Belt_Array.zipBy(Belt_Array.zipBy(Belt_Array.zipBy(left, right, min_), top, min_), bottom, min_), trees, (function (a, b) {
-                    return eqOrGreater_(b, a);
-                  })), (function (a) {
-                return a;
-              })), (function (a) {
-            return a;
-          })).length);
+var results = Belt_Array.zipBy(Belt_Array.zipBy(Belt_Array.zipBy(left, right, min_), top, min_), bottom, min_);
+
+function pp(a) {
+  console.log(Belt_Array.joinWith(Belt_Array.map(a, (function (__x) {
+                  return Belt_Array.joinWith(__x, "", (function (prim) {
+                                return String(prim);
+                              }));
+                })), "\n", (function (a) {
+              return a;
+            })));
+}
+
+pp(results);
+
+Belt_Array.joinWith(Belt_Array.map(Belt_Array.map(Belt_Array.zipBy(results, trees, (function (result, tree) {
+                    return Belt_Array.zipBy(result, tree, (function (a, b) {
+                                  return a <= b;
+                                }));
+                  })), (function (__x) {
+                return Belt_Array.map(__x, (function (a) {
+                              if (a) {
+                                return 1;
+                              } else {
+                                return 0;
+                              }
+                            }));
+              })), (function (__x) {
+            return Belt_Array.joinWith(__x, "", (function (prim) {
+                          return String(prim);
+                        }));
+          })), "\n", (function (a) {
+        return a;
+      }));
 
 exports.input = input;
 exports.max_ = max_;
@@ -82,5 +108,7 @@ exports.top = top;
 exports.bottom = bottom;
 exports.min_ = min_;
 exports.min__ = min__;
-exports.eqOrGreater_ = eqOrGreater_;
+exports.less_ = less_;
+exports.results = results;
+exports.pp = pp;
 /* input Not a pure module */

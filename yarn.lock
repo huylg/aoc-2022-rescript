@@ -120,6 +120,11 @@ is-number@^7.0.0:
   resolved "https://registry.yarnpkg.com/is-number/-/is-number-7.0.0.tgz#7535345b896734d5f80c4d06c50955527a14f12b"
   integrity sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==
 
+js-array2-ex@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/js-array2-ex/-/js-array2-ex-0.0.4.tgz#f7f07fae1499ed7f037664d6453c52936ce0b6f5"
+  integrity sha512-95W3Z/x7tGy+Gr0lw+XAaXuqvyYBfY9RxvLuZ8mb5qijzlJs+4PTJYg/YstwjIAD7xpNXjDS2kC+eEz8P+vn2g==
+
 minimatch@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.1.2.tgz#19cd194bfd3e428f049a70817c038d89ab4be35b"

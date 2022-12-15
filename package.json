@@ -12,6 +12,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "js-array2-ex": "^0.0.4",
     "nodemon": "^2.0.20",
     "rescript": "*"
   }

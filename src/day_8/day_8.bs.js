@@ -4,9 +4,11 @@
 var Fs = require("fs");
 var Caml = require("rescript/lib/js/caml.js");
 var Belt_Int = require("rescript/lib/js/belt_Int.js");
+var Caml_obj = require("rescript/lib/js/caml_obj.js");
 var Js_array = require("rescript/lib/js/js_array.js");
 var Js_string = require("rescript/lib/js/js_string.js");
 var Belt_Array = require("rescript/lib/js/belt_Array.js");
+var JsArray2Ex = require("js-array2-ex/src/JsArray2Ex.bs.js");
 var Pervasives = require("rescript/lib/js/pervasives.js");
 var Belt_Option = require("rescript/lib/js/belt_Option.js");
 
@@ -14,16 +16,13 @@ var input = Fs.readFileSync("src/day_8/test", "utf8").split("\n");
 
 input.pop();
 
-var partial_arg = [];
-
-function maxUntil(param) {
-  return Js_array.reduce((function (result, cur) {
+function maxUntil(a) {
+  return Belt_Array.reduce(a, [], (function (result, cur) {
                 var len = result.length;
-                console.log(Belt_Array.get(result, len - 1 | 0));
                 var __x = Caml.int_max(Belt_Option.getWithDefault(Belt_Array.get(result, len - 1 | 0), Pervasives.min_int), cur);
                 result.push(__x);
                 return result;
-              }), partial_arg, param);
+              }));
 }
 
 var trees = Belt_Array.map(Belt_Array.map(Belt_Array.map(input, (function (param) {
@@ -36,9 +35,33 @@ var trees = Belt_Array.map(Belt_Array.map(Belt_Array.map(input, (function (param
                     }), param);
       }));
 
-Belt_Array.map(trees, maxUntil);
+var left = Belt_Array.map(trees, maxUntil);
+
+var right = Belt_Array.map(Belt_Array.map(trees, Belt_Array.reverse), maxUntil);
+
+var top = Belt_Array.map(JsArray2Ex.transpose(trees), maxUntil);
+
+var bottom = Belt_Array.map(Belt_Array.map(JsArray2Ex.transpose(trees), Belt_Array.reverse), maxUntil);
+
+function min_(a, b) {
+  return Belt_Array.zipBy(a, b, Caml_obj.min);
+}
+
+function min__(a, b) {
+  return Belt_Array.zipBy(a, b, min_);
+}
+
+console.log(Belt_Array.zipBy(Belt_Array.zipBy(Belt_Array.zipBy(left, right, min_), top, min_), bottom, min_));
+
+console.log(trees);
 
 exports.input = input;
 exports.maxUntil = maxUntil;
 exports.trees = trees;
+exports.left = left;
+exports.right = right;
+exports.top = top;
+exports.bottom = bottom;
+exports.min_ = min_;
+exports.min__ = min__;
 /* input Not a pure module */

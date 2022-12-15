@@ -13,7 +13,6 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +1 ~/personal/aoc-2022-rescript
 badd +21 src/day_2/day_2_extend.res
 badd +2209 src/day_1/test.txt
 badd +2498 src/day_2/test.txt
@@ -58,7 +57,7 @@ badd +70 src/day_7/day_7.bs.js
 badd +48 src/day_7/day_7.res
 badd +69 src/day_7/day_7_extend.bs.js
 badd +2 src/day_8/input
-badd +14 src/day_8/res_8.res
+badd +13 src/day_8/res_8.res
 badd +1 src/day_9/res_9.res
 badd +2 src/day_9/input
 badd +19 src/day_9/puzzle.md
@@ -66,12 +65,12 @@ badd +11 src/day_8/puzzle.md
 badd +1 src/day_8
 badd +5 src/day_8/test
 badd +1 node_modules/rescript/lib/ocaml/js_array.ml
+badd +11 src/day_8/res_8.bs.js
 argglobal
 %argdel
 $argadd ~/personal/aoc-2022-rescript
 edit src/day_8/res_8.res
 argglobal
-balt node_modules/rescript/lib/ocaml/js_array.ml
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -82,12 +81,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 8 - ((7 * winheight(0) + 34) / 69)
+let s:l = 19 - ((18 * winheight(0) + 34) / 69)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 8
-normal! 055|
+keepjumps 19
+normal! 0
 lcd ~/personal/aoc-2022-rescript
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'

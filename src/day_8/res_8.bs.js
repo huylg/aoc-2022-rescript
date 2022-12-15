@@ -2,14 +2,29 @@
 'use strict';
 
 var Fs = require("fs");
+var Caml = require("rescript/lib/js/caml.js");
 var Belt_Int = require("rescript/lib/js/belt_Int.js");
 var Js_array = require("rescript/lib/js/js_array.js");
 var Js_string = require("rescript/lib/js/js_string.js");
 var Belt_Array = require("rescript/lib/js/belt_Array.js");
+var Pervasives = require("rescript/lib/js/pervasives.js");
+var Belt_Option = require("rescript/lib/js/belt_Option.js");
 
 var input = Fs.readFileSync("src/day_8/test", "utf8").split("\n");
 
 input.pop();
+
+var partial_arg = [];
+
+function maxUntil(param) {
+  return Js_array.reduce((function (result, cur) {
+                var len = result.length;
+                console.log(Belt_Array.get(result, len - 1 | 0));
+                var __x = Caml.int_max(Belt_Option.getWithDefault(Belt_Array.get(result, len - 1 | 0), Pervasives.min_int), cur);
+                result.push(__x);
+                return result;
+              }), partial_arg, param);
+}
 
 var trees = Belt_Array.map(Belt_Array.map(Belt_Array.map(input, (function (param) {
                 return Js_string.split("", param);
@@ -21,6 +36,9 @@ var trees = Belt_Array.map(Belt_Array.map(Belt_Array.map(input, (function (param
                     }), param);
       }));
 
+Belt_Array.map(trees, maxUntil);
+
 exports.input = input;
+exports.maxUntil = maxUntil;
 exports.trees = trees;
 /* input Not a pure module */

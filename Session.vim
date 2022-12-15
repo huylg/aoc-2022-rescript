@@ -67,54 +67,14 @@ badd +1 src/day_8
 badd +5 src/day_8/test
 badd +1 node_modules/rescript/lib/ocaml/js_array.ml
 badd +11 src/day_8/res_8.bs.js
-badd +666 term://~/personal/aoc-2022-rescript//62247:/bin/zsh
 badd +12 bsconfig.json
+badd +6126 term://~/personal/aoc-2022-rescript//13292:yarn\ nodemon\ src/day_8/day_8.bs.js
 argglobal
 %argdel
 $argadd ~/personal/aoc-2022-rescript
 edit src/day_8/day_8.res
-let s:save_splitbelow = &splitbelow
-let s:save_splitright = &splitright
-set splitbelow splitright
-wincmd _ | wincmd |
-vsplit
-1wincmd h
-wincmd w
-let &splitbelow = s:save_splitbelow
-let &splitright = s:save_splitright
-wincmd t
-let s:save_winminheight = &winminheight
-let s:save_winminwidth = &winminwidth
-set winminheight=0
-set winheight=1
-set winminwidth=0
-set winwidth=1
-exe 'vert 1resize ' . ((&columns * 160 + 160) / 320)
-exe 'vert 2resize ' . ((&columns * 159 + 160) / 320)
 argglobal
-if bufexists(fnamemodify("term://~/personal/aoc-2022-rescript//62247:/bin/zsh", ":p")) | buffer term://~/personal/aoc-2022-rescript//62247:/bin/zsh | else | edit term://~/personal/aoc-2022-rescript//62247:/bin/zsh | endif
-if &buftype ==# 'terminal'
-  silent file term://~/personal/aoc-2022-rescript//62247:/bin/zsh
-endif
-balt src/day_8/day_8.res
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-let s:l = 662 - ((62 * winheight(0) + 34) / 69)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 662
-normal! 011|
-lcd ~/personal/aoc-2022-rescript
-wincmd w
-argglobal
-balt ~/personal/aoc-2022-rescript
+balt term://~/personal/aoc-2022-rescript//13292:yarn\ nodemon\ src/day_8/day_8.bs.js
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -125,16 +85,13 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 26 - ((25 * winheight(0) + 34) / 69)
+let s:l = 50 - ((49 * winheight(0) + 34) / 69)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 26
-normal! 013|
+keepjumps 50
+normal! 018|
 lcd ~/personal/aoc-2022-rescript
-wincmd w
-exe 'vert 1resize ' . ((&columns * 160 + 160) / 320)
-exe 'vert 2resize ' . ((&columns * 159 + 160) / 320)
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -142,8 +99,6 @@ endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20
 let &shortmess = s:shortmess_save
-let &winminheight = s:save_winminheight
-let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)

@@ -3,38 +3,13 @@
 
 var Fs = require("fs");
 var Belt_Int = require("rescript/lib/js/belt_Int.js");
-var Caml_obj = require("rescript/lib/js/caml_obj.js");
 var Js_array = require("rescript/lib/js/js_array.js");
 var Js_string = require("rescript/lib/js/js_string.js");
 var Belt_Array = require("rescript/lib/js/belt_Array.js");
-var JsArray2Ex = require("js-array2-ex/src/JsArray2Ex.bs.js");
-var Pervasives = require("rescript/lib/js/pervasives.js");
-var Belt_Option = require("rescript/lib/js/belt_Option.js");
 
-var input = Fs.readFileSync("src/day_8/input", "utf8").split("\n");
-
-input.pop();
-
-function max_(a, b) {
-  if (a === b) {
-    return a + 1 | 0;
-  } else if (a > b) {
-    return a;
-  } else {
-    return b;
-  }
-}
-
-function maxUntil(a) {
-  return Belt_Array.reduce(a, [], (function (result, cur) {
-                var len = result.length;
-                var __x = max_(Belt_Option.getWithDefault(Belt_Array.get(result, len - 1 | 0), Pervasives.min_int), cur);
-                result.push(__x);
-                return result;
-              }));
-}
-
-var trees = Belt_Array.map(Belt_Array.map(Belt_Array.map(input, (function (param) {
+var input = Belt_Array.map(Belt_Array.map(Belt_Array.map(Belt_Array.keep(Fs.readFileSync("src/day_8/input", "utf8").split("\n"), (function (e) {
+                    return e !== "";
+                  })), (function (param) {
                 return Js_string.split("", param);
               })), (function (param) {
             return Js_array.map(Belt_Int.fromString, param);
@@ -44,71 +19,33 @@ var trees = Belt_Array.map(Belt_Array.map(Belt_Array.map(input, (function (param
                     }), param);
       }));
 
-var left = Belt_Array.map(trees, maxUntil);
-
-var right = Belt_Array.map(Belt_Array.map(Belt_Array.map(trees, Belt_Array.reverse), maxUntil), Belt_Array.reverse);
-
-var top = JsArray2Ex.transpose(Belt_Array.map(JsArray2Ex.transpose(trees), maxUntil));
-
-var bottom = Belt_Array.reverse(JsArray2Ex.transpose(Belt_Array.map(JsArray2Ex.transpose(Belt_Array.reverse(trees)), maxUntil)));
-
-function min_(a, b) {
-  return Belt_Array.zipBy(a, b, Caml_obj.min);
-}
-
-function min__(a, b) {
-  return Belt_Array.zipBy(a, b, min_);
-}
-
-function less_(a, b) {
-  return Belt_Array.zipBy(a, b, Caml_obj.lessthan);
-}
-
-var results = Belt_Array.zipBy(Belt_Array.zipBy(Belt_Array.zipBy(left, right, min_), top, min_), bottom, min_);
-
-function pp(a) {
-  console.log(Belt_Array.joinWith(Belt_Array.map(a, (function (__x) {
-                  return Belt_Array.joinWith(__x, "", (function (prim) {
-                                return String(prim);
-                              }));
-                })), "\n", (function (a) {
-              return a;
-            })));
-}
-
-pp(results);
-
-Belt_Array.joinWith(Belt_Array.map(Belt_Array.map(Belt_Array.zipBy(results, trees, (function (result, tree) {
-                    return Belt_Array.zipBy(result, tree, (function (a, b) {
-                                  return a <= b;
+console.log(Belt_Array.reduceWithIndex(input, 0, (function (acc, line, x) {
+            return acc + Belt_Array.reduceWithIndex(line, 0, (function (acc, e, y) {
+                          var left = Belt_Array.every(Belt_Array.slice(line, 0, y), (function (a) {
+                                  return a < e;
                                 }));
-                  })), (function (__x) {
-                return Belt_Array.map(__x, (function (a) {
-                              if (a) {
-                                return 1;
-                              } else {
-                                return 0;
-                              }
-                            }));
-              })), (function (__x) {
-            return Belt_Array.joinWith(__x, "", (function (prim) {
-                          return String(prim);
-                        }));
-          })), "\n", (function (a) {
-        return a;
-      }));
+                          var right = Belt_Array.every(Belt_Array.sliceToEnd(line, y + 1 | 0), (function (a) {
+                                  return a < e;
+                                }));
+                          var __x = Belt_Array.slice(input, 0, x);
+                          var top = Belt_Array.every(Belt_Array.map(__x, (function (__x) {
+                                      return __x[y];
+                                    })), (function (a) {
+                                  return a < e;
+                                }));
+                          var __x$1 = Belt_Array.sliceToEnd(input, x + 1 | 0);
+                          var bottom = Belt_Array.every(Belt_Array.map(__x$1, (function (__x) {
+                                      return __x[y];
+                                    })), (function (a) {
+                                  return a < e;
+                                }));
+                          if (left || right || top || bottom) {
+                            return acc + 1 | 0;
+                          } else {
+                            return acc;
+                          }
+                        })) | 0;
+          })));
 
 exports.input = input;
-exports.max_ = max_;
-exports.maxUntil = maxUntil;
-exports.trees = trees;
-exports.left = left;
-exports.right = right;
-exports.top = top;
-exports.bottom = bottom;
-exports.min_ = min_;
-exports.min__ = min__;
-exports.less_ = less_;
-exports.results = results;
-exports.pp = pp;
 /* input Not a pure module */

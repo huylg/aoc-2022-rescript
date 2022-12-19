@@ -3,37 +3,63 @@
 
 var Fs = require("fs");
 var Belt_Int = require("rescript/lib/js/belt_Int.js");
-var Js_array = require("rescript/lib/js/js_array.js");
 var Js_string = require("rescript/lib/js/js_string.js");
 var Belt_Array = require("rescript/lib/js/belt_Array.js");
+var Caml_int32 = require("rescript/lib/js/caml_int32.js");
+var Belt_Option = require("rescript/lib/js/belt_Option.js");
 
-var input = Belt_Array.map(Belt_Array.map(Belt_Array.map(Belt_Array.keep(Fs.readFileSync("src/day_8/test", "utf8").split("\n"), (function (e) {
+var input = Belt_Array.map(Belt_Array.map(Belt_Array.flatMap(Belt_Array.keep(Fs.readFileSync("src/day_8/input", "utf8").split("\n"), (function (e) {
                     return e !== "";
                   })), (function (param) {
                 return Js_string.split("", param);
-              })), (function (param) {
-            return Js_array.map(Belt_Int.fromString, param);
-          })), (function (param) {
-        return Js_array.map((function (prim) {
-                      return prim;
-                    }), param);
+              })), Belt_Int.fromString), (function (prim) {
+        return prim;
       }));
 
-var count = {
-  contents: 0
-};
+var len = input.length;
 
-console.log(Belt_Array.mapWithIndex(input, (function (x, line) {
-            return Belt_Array.mapWithIndex(line, (function (y, e) {
-                          Belt_Array.map(input, (function (__x) {
-                                  return __x[y];
-                                }));
-                        }));
+var width = Math.sqrt(len) | 0;
+
+var scores = Belt_Array.mapWithIndex(input, (function (i, cur) {
+        var x = Caml_int32.div(i, width);
+        var y = Caml_int32.mod_(i, width);
+        var left = Belt_Option.mapWithDefault(Belt_Array.getIndexBy(Belt_Array.reverse(Belt_Array.slice(input, i - y | 0, y)), (function (a) {
+                    return a >= cur;
+                  })), y, (function (a) {
+                return a + 1 | 0;
+              }));
+        var right = Belt_Option.mapWithDefault(Belt_Array.getIndexBy(Belt_Array.slice(input, i + 1 | 0, (width - y | 0) - 1 | 0), (function (a) {
+                    return a >= cur;
+                  })), (width - y | 0) - 1 | 0, (function (a) {
+                return a + 1 | 0;
+              }));
+        var top = Belt_Option.mapWithDefault(Belt_Array.getIndexBy(Belt_Array.reverse(Belt_Array.makeBy(x, (function (i) {
+                            return input[Math.imul(i, width) + y | 0];
+                          }))), (function (a) {
+                    return a >= cur;
+                  })), x, (function (a) {
+                return a + 1 | 0;
+              }));
+        var bottom = Belt_Option.mapWithDefault(Belt_Array.getIndexBy(Belt_Array.makeBy((width - x | 0) - 1 | 0, (function (i) {
+                        return input[Math.imul((i + x | 0) + 1 | 0, width) + y | 0];
+                      })), (function (a) {
+                    return a >= cur;
+                  })), (width - x | 0) - 1 | 0, (function (a) {
+                return a + 1 | 0;
+              }));
+        return Math.imul(Math.imul(Math.imul(left, right), top), bottom);
+      }));
+
+console.log(Belt_Array.reduce(scores, 0, (function (prim0, prim1) {
+            if (prim0 > prim1) {
+              return prim0;
+            } else {
+              return prim1;
+            }
           })));
 
-var len = 5;
-
 exports.input = input;
-exports.count = count;
 exports.len = len;
+exports.width = width;
+exports.scores = scores;
 /* input Not a pure module */

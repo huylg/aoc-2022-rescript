@@ -57,14 +57,14 @@ badd +12 src/day_7/test
 badd +70 src/day_7/day_7.bs.js
 badd +48 src/day_7/day_7.res
 badd +69 src/day_7/day_7_extend.bs.js
-badd +12 src/day_8/input
+badd +19 src/day_8/input
 badd +4 src/day_8/src/day_8/day_8_extend.res
-badd +1 src/day_9/res_9.res
-badd +2 src/day_9/input
-badd +19 src/day_9/puzzle.md
-badd +72 src/day_8/puzzle.md
+badd +69 src/day_9/res_9.res
+badd +17 src/day_9/input
+badd +253 src/day_9/puzzle.md
+badd +79 src/day_8/puzzle.md
 badd +1 src/day_8
-badd +4 src/day_8/test
+badd +2 src/day_8/test
 badd +1 node_modules/rescript/lib/ocaml/js_array.ml
 badd +11 src/day_8/res_8.bs.js
 badd +12 bsconfig.json
@@ -74,13 +74,63 @@ badd +40 node_modules/rescript/lib/ocaml/belt_Int.mli
 badd +20 src/day_8/day_8.bs.js
 badd +1 src/day_8/day_8.res
 badd +1 day_8_extend.res\ src/day_8
-badd +17 src/day_8/day_8_extend.res
+badd +4 src/day_8/day_8_extend.res
+badd +8 term://~/personal/aoc-2022-rescript//17654:yarn\ nodemon\ src/day_8/day_8_extend.bs.jsres
+badd +255 node_modules/rescript/lib/ocaml/pervasives.mli
+badd +8 src/day_9/test
+badd +95 term://~/personal/aoc-2022-rescript//41533:yarn\ nodemon\ src/day_9/res_9.bs.js
+badd +297 term://~/personal/aoc-2022-rescript//61336:yarn\ nodemon\ src/day_9/res_9.bs.js
+badd +0 term://~/personal/aoc-2022-rescript//70737:yarn\ nodemon\ src/day_9/res_9.bs.js
 argglobal
 %argdel
 $argadd ~/personal/aoc-2022-rescript
-edit src/day_8/day_8_extend.res
+edit src/day_9/puzzle.md
+let s:save_splitbelow = &splitbelow
+let s:save_splitright = &splitright
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+wincmd _ | wincmd |
+vsplit
+2wincmd h
+wincmd w
+wincmd w
+let &splitbelow = s:save_splitbelow
+let &splitright = s:save_splitright
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe 'vert 1resize ' . ((&columns * 106 + 160) / 320)
+exe 'vert 2resize ' . ((&columns * 106 + 160) / 320)
+exe 'vert 3resize ' . ((&columns * 106 + 160) / 320)
 argglobal
-balt src/day_8/puzzle.md
+if bufexists(fnamemodify("term://~/personal/aoc-2022-rescript//70737:yarn\ nodemon\ src/day_9/res_9.bs.js", ":p")) | buffer term://~/personal/aoc-2022-rescript//70737:yarn\ nodemon\ src/day_9/res_9.bs.js | else | edit term://~/personal/aoc-2022-rescript//70737:yarn\ nodemon\ src/day_9/res_9.bs.js | endif
+if &buftype ==# 'terminal'
+  silent file term://~/personal/aoc-2022-rescript//70737:yarn\ nodemon\ src/day_9/res_9.bs.js
+endif
+balt src/day_9/res_9.res
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 113 - ((56 * winheight(0) + 34) / 69)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 113
+normal! 032|
+lcd ~/personal/aoc-2022-rescript
+wincmd w
+argglobal
+balt ~/personal/aoc-2022-rescript/src/day_9/res_9.res
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -91,13 +141,41 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 13 - ((12 * winheight(0) + 34) / 69)
+let s:l = 246 - ((37 * winheight(0) + 34) / 69)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 13
-normal! 07|
+keepjumps 246
+normal! 06|
 lcd ~/personal/aoc-2022-rescript
+wincmd w
+argglobal
+if bufexists(fnamemodify("~/personal/aoc-2022-rescript/src/day_9/res_9.res", ":p")) | buffer ~/personal/aoc-2022-rescript/src/day_9/res_9.res | else | edit ~/personal/aoc-2022-rescript/src/day_9/res_9.res | endif
+if &buftype ==# 'terminal'
+  silent file ~/personal/aoc-2022-rescript/src/day_9/res_9.res
+endif
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 69 - ((40 * winheight(0) + 34) / 69)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 69
+normal! 012|
+lcd ~/personal/aoc-2022-rescript
+wincmd w
+3wincmd w
+exe 'vert 1resize ' . ((&columns * 106 + 160) / 320)
+exe 'vert 2resize ' . ((&columns * 106 + 160) / 320)
+exe 'vert 3resize ' . ((&columns * 106 + 160) / 320)
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -105,6 +183,8 @@ endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20
 let &shortmess = s:shortmess_save
+let &winminheight = s:save_winminheight
+let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)

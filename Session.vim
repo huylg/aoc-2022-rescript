@@ -59,9 +59,9 @@ badd +48 src/day_7/day_7.res
 badd +69 src/day_7/day_7_extend.bs.js
 badd +19 src/day_8/input
 badd +4 src/day_8/src/day_8/day_8_extend.res
-badd +69 src/day_9/res_9.res
+badd +66 src/day_9/res_9_extend.res
 badd +17 src/day_9/input
-badd +253 src/day_9/puzzle.md
+badd +1 src/day_9/puzzle.md
 badd +79 src/day_8/puzzle.md
 badd +1 src/day_8
 badd +2 src/day_8/test
@@ -80,11 +80,17 @@ badd +255 node_modules/rescript/lib/ocaml/pervasives.mli
 badd +8 src/day_9/test
 badd +95 term://~/personal/aoc-2022-rescript//41533:yarn\ nodemon\ src/day_9/res_9.bs.js
 badd +297 term://~/personal/aoc-2022-rescript//61336:yarn\ nodemon\ src/day_9/res_9.bs.js
-badd +0 term://~/personal/aoc-2022-rescript//70737:yarn\ nodemon\ src/day_9/res_9.bs.js
+badd +86 src/day_9/res_9.bs.js
+badd +1 src/day_9
+badd +4 term://~/personal/aoc-2022-rescript//12232:yarn\ nodemon\ src/day_9/src/day_9/day_9_rf_extend.bs.js
+badd +0 term://~/personal/aoc-2022-rescript//12297:yarn\ nodemon\ h->Belt.Array.zip(t)->Js.log
+badd +1 src/day_9/res_9.res
+badd +0 term://~/personal/aoc-2022-rescript//13183:yarn\ nodemon\ src/day_9/res_9_extend.bs.js
+badd +272 9/puzzle.md
 argglobal
 %argdel
 $argadd ~/personal/aoc-2022-rescript
-edit src/day_9/puzzle.md
+edit 9/puzzle.md
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
@@ -108,11 +114,11 @@ exe 'vert 1resize ' . ((&columns * 106 + 160) / 320)
 exe 'vert 2resize ' . ((&columns * 106 + 160) / 320)
 exe 'vert 3resize ' . ((&columns * 106 + 160) / 320)
 argglobal
-if bufexists(fnamemodify("term://~/personal/aoc-2022-rescript//70737:yarn\ nodemon\ src/day_9/res_9.bs.js", ":p")) | buffer term://~/personal/aoc-2022-rescript//70737:yarn\ nodemon\ src/day_9/res_9.bs.js | else | edit term://~/personal/aoc-2022-rescript//70737:yarn\ nodemon\ src/day_9/res_9.bs.js | endif
+if bufexists(fnamemodify("term://~/personal/aoc-2022-rescript//13183:yarn\ nodemon\ src/day_9/res_9_extend.bs.js", ":p")) | buffer term://~/personal/aoc-2022-rescript//13183:yarn\ nodemon\ src/day_9/res_9_extend.bs.js | else | edit term://~/personal/aoc-2022-rescript//13183:yarn\ nodemon\ src/day_9/res_9_extend.bs.js | endif
 if &buftype ==# 'terminal'
-  silent file term://~/personal/aoc-2022-rescript//70737:yarn\ nodemon\ src/day_9/res_9.bs.js
+  silent file term://~/personal/aoc-2022-rescript//13183:yarn\ nodemon\ src/day_9/res_9_extend.bs.js
 endif
-balt src/day_9/res_9.res
+balt src/day_9/res_9_extend.res
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -121,16 +127,16 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 113 - ((56 * winheight(0) + 34) / 69)
+let s:l = 7 - ((6 * winheight(0) + 34) / 69)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 113
-normal! 032|
+keepjumps 7
+normal! 0
 lcd ~/personal/aoc-2022-rescript
 wincmd w
 argglobal
-balt ~/personal/aoc-2022-rescript/src/day_9/res_9.res
+balt ~/personal/aoc-2022-rescript/src/day_9/res_9_extend.res
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -141,19 +147,20 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 246 - ((37 * winheight(0) + 34) / 69)
+let s:l = 537 - ((40 * winheight(0) + 34) / 69)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 246
-normal! 06|
+keepjumps 537
+normal! 026|
 lcd ~/personal/aoc-2022-rescript
 wincmd w
 argglobal
-if bufexists(fnamemodify("~/personal/aoc-2022-rescript/src/day_9/res_9.res", ":p")) | buffer ~/personal/aoc-2022-rescript/src/day_9/res_9.res | else | edit ~/personal/aoc-2022-rescript/src/day_9/res_9.res | endif
+if bufexists(fnamemodify("~/personal/aoc-2022-rescript/src/day_9/res_9_extend.res", ":p")) | buffer ~/personal/aoc-2022-rescript/src/day_9/res_9_extend.res | else | edit ~/personal/aoc-2022-rescript/src/day_9/res_9_extend.res | endif
 if &buftype ==# 'terminal'
-  silent file ~/personal/aoc-2022-rescript/src/day_9/res_9.res
+  silent file ~/personal/aoc-2022-rescript/src/day_9/res_9_extend.res
 endif
+balt ~/personal/aoc-2022-rescript/9/puzzle.md
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -164,12 +171,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 69 - ((40 * winheight(0) + 34) / 69)
+let s:l = 66 - ((44 * winheight(0) + 34) / 69)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 69
-normal! 012|
+keepjumps 66
+normal! 020|
 lcd ~/personal/aoc-2022-rescript
 wincmd w
 3wincmd w

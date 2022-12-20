@@ -9,7 +9,7 @@ var Js_string = require("rescript/lib/js/js_string.js");
 var Belt_Array = require("rescript/lib/js/belt_Array.js");
 var Belt_MutableSet = require("rescript/lib/js/belt_MutableSet.js");
 
-var input = Belt_Array.map(Belt_Array.map(Belt_Array.keep(Fs.readFileSync("src/day_9/input", "utf8").split("\n"), (function (e) {
+var input = Belt_Array.map(Belt_Array.map(Belt_Array.keep(Fs.readFileSync("src/day_9/test", "utf8").split("\n"), (function (e) {
                 return e !== "";
               })), (function (param) {
             return Js_string.split(" ", param);

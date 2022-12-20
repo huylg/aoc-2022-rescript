@@ -1,5 +1,5 @@
 let input =
-  Node.Fs.readFileAsUtf8Sync("src/day_9/input")
+  Node.Fs.readFileAsUtf8Sync("src/day_9/test")
   ->Js.String2.split("\n")
   ->Belt.Array.keep(e => e != "")
   ->Belt.Array.map(Js.String.split(" "))
@@ -63,20 +63,26 @@ let _ = Belt.Array.flatMap(input, ((d, step)) =>
   let gap = cal_gap(new_h, cur_t)
 
   let new_t = switch gap {
-  | (0, 2) => sumPoint(cur_t, {x: 0, y: 1})
-  | (0, -2) => sumPoint(cur_t, {x: 0, y: -1})
-  | (2, 0) => sumPoint(cur_t, {x: 1, y: 0})
-  | (-2, 0) => sumPoint(cur_t, {x: -1, y: 0})
-  | (2, 1) => sumPoint(cur_t, {x: 1, y: 1})
-  | (-2, -1) => sumPoint(cur_t, {x: -1, y: -1})
-  | (2, -1) => sumPoint(cur_t, {x: 1, y: -1})
-  | (-2, 1) => sumPoint(cur_t, {x: -1, y: 1})
-  | (1, 2) => sumPoint(cur_t, {x: 1, y: 1})
-  | (-1, -2) => sumPoint(cur_t, {x: -1, y: -1})
-  | (1, -2) => sumPoint(cur_t, {x: 1, y: -1})
-  | (-1, 2) => sumPoint(cur_t, {x: -1, y: 1})
-  | _ => cur_t
+  | () => expression
+  | pattern2 => expression
   }
+
+
+  /* let new_t = switch gap { */
+  /* | (0, 2) => sumPoint(cur_t, {x: 0, y: 1}) */
+  /* | (0, -2) => sumPoint(cur_t, {x: 0, y: -1}) */
+  /* | (2, 0) => sumPoint(cur_t, {x: 1, y: 0}) */
+  /* | (-2, 0) => sumPoint(cur_t, {x: -1, y: 0}) */
+  /* | (2, 1) => sumPoint(cur_t, {x: 1, y: 1}) */
+  /* | (-2, -1) => sumPoint(cur_t, {x: -1, y: -1}) */
+  /* | (2, -1) => sumPoint(cur_t, {x: 1, y: -1}) */
+  /* | (-2, 1) => sumPoint(cur_t, {x: -1, y: 1}) */
+  /* | (1, 2) => sumPoint(cur_t, {x: 1, y: 1}) */
+  /* | (-1, -2) => sumPoint(cur_t, {x: -1, y: -1}) */
+  /* | (1, -2) => sumPoint(cur_t, {x: 1, y: -1}) */
+  /* | (-1, 2) => sumPoint(cur_t, {x: -1, y: 1}) */
+  /* | _ => cur_t */
+  /* } */
 
   Belt.Array.push(h, new_h)
   Belt.Array.push(t, new_t)
